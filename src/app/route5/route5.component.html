@@ -1,0 +1,20 @@
+<div class="container" style="margin-top: 10%;">
+    <div class="row">
+        <div id="divTbl" class="col-md-12">
+            <table *ngIf="jsonData!=null && jsonData.length > 0" class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th *ngFor='let data of header;let col = index' (click)="changeSorting(col);">{{data}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of jsonData">
+                        <td *ngFor="let key of header">{{objValue(data)[header.indexOf(key)]}}</td>
+                    </tr> 
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<input id="sortType" type="hidden" value="1" />
+<input id="sortCol" type="hidden" value="" />

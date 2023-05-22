@@ -1,0 +1,15 @@
+<div class="border border-3 border-dark p-3">
+        <div class="row g-3 align-items-center">
+            <div class="col-md-6">
+            <label for="inputTimer" class="col-form-label">Enter Timer Limit</label>
+            </div>
+            <div class="col-md-6">
+            <input type="number" id="inputTimer" #inputTimer (keyup)="checkInputValdity(inputTimer)" required class="form-control" aria-describedby="enterTimerLimit">
+                <div *ngIf="showError==true" class="text-danger">Timer value is required</div>
+            </div>
+            <div class="col-md-6 offset-md-6">
+                <input type="button" class="btn btn-primary" (click)="startPauseTimer(inputTimer.value)" value="Start/Pause" />
+                <input type="button" class="btn btn-secondary" (click)="resetTimer(inputTimer)" value="Reset" />
+            </div>
+        </div>
+</div>

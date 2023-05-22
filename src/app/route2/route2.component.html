@@ -1,0 +1,54 @@
+<div class="container m-4 text-center">
+    <div class="row" id="div-btn">
+        <div class="col-md-2 offset-md-8">
+            <div id="view-btn">
+                <a href="javascript:" (click)="changeViewType('grid');" id="btnGrid" class="grid-btn">
+                    <img src="./assets/images/grid-svg.svg" class="img-fluid"/>
+                </a> 
+                <a href="javascript:" (click)="changeViewType('list');" id="btnList" class="lst-btn">
+                    <img src="./assets/images/list-svg.svg" class="img-fluid"/>
+                </a> 
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                  Sort by price
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                  <li><a id="btnPriceAsc" class="dropdown-item {{sortType=='asc'? 'active':''}} " href="javascript:" (click)="sortData('asc');">Low to High</a></li>
+                  <li><a id="btnPriceDesc" class="dropdown-item  {{sortType=='desc'? 'active':''}} " href="javascript:" (click)="sortData('desc');">High to Low</a></li>
+                </ul>
+              </div>
+        </div>
+    </div>
+    <div id="gridViewDiv" class="grid-view container {{viewType=='grid'? '':'d-none'}}">    
+        <div class="row">
+            <div class="col-md-3" *ngFor="let data of jsonData">
+                <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">{{data.title}}</h5>
+                      <p class="card-text">{{data.description}}</p>
+                      <span class="badge bg-secondary mb-2">Price: {{data.price}}</span>
+                      <a href="#" class="btn btn-primary">{{data.buttonText}}</a>
+                    </div>
+                  </div>
+                </div>
+        </div>            
+    </div>
+    
+    <div id="listViewDiv" class="list-view container {{viewType=='list'? '':'d-none'}}">      
+        <div class="row">
+            <div class="col-md-6" *ngFor="let data of jsonData">
+                <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">{{data.title}}</h5>
+                      <p class="card-text">{{data.description}}</p>
+                      <span class="badge bg-secondary mb-2">Price: {{data.price}}</span>
+                      <a href="#" class="btn btn-primary">{{data.buttonText}}</a>
+                    </div>
+                  </div>
+                </div>
+        </div>            
+    </div>
+</div>

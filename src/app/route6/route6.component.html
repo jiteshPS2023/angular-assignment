@@ -1,0 +1,7 @@
+<div class="container-fluid">
+    <div class="d-flex flex-wrap">
+        <div class="std-div border border-dark border-2" *ngFor="let count of divList">
+        <button #btn (click)="showAlert(btn);" [attr.data-count]="count">Button {{count}}</button>
+        </div>
+    </div>
+</div>

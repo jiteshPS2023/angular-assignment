@@ -1,0 +1,8 @@
+.std-div{
+    width: 200px;
+    height: 200px;
+    display: flex;
+}
+.std-div > button{
+    margin: auto;
+}

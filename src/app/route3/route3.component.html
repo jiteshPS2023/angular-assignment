@@ -1,0 +1,8 @@
+<div class="container border border-3 border-dark">
+    <div class="row p-2">
+        <app-countdown-timer class="col-md-3" [eventName]="countdownDet.eventName"  [timerValue]="countdownDet.timerValue"></app-countdown-timer>
+        <app-timer-count class="col-md-8 offset-md-1" (timerDetails)="startTimer($event)"></app-timer-count>
+        <app-timer-input class="col-md-4" [eventName]="countdownDet.eventName"></app-timer-input>
+        <app-timer-logs class="col-md-6" [eventName]="countdownDet.eventName" ></app-timer-logs>
+    </div>
+</div>
