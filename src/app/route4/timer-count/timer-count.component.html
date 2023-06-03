@@ -1,0 +1,16 @@
+<div class="border border-3 border-dark p-3">
+        <div class="row g-3 align-items-center">
+            <div class="col-md-6">
+            <label for="inputTimer" class="col-form-label">Enter Timer Limit</label>
+            </div>
+            <div class="col-md-6">
+            <input type="number" id="inputTimer" [(ngModel)]="inputTimer" (keyup)="checkInputValdity()" required class="form-control" aria-describedby="enterTimerLimit">
+                <div *ngIf="showError=='true'" class="text-danger">Timer value is required</div>
+            </div>
+            <div class="col-md-6 offset-md-6">
+                <input type="button" class="btn btn-primary" [attr.disabled]="(showError=='true' || showError=='')? '':null" (click)="startPauseTimer()" value="Start/Pause" />
+                &nbsp;
+                <input type="button" class="btn btn-secondary" [ngClass]="{'d-none': this.eventName=='Reset' || this.eventName==''}" (click)="resetTimer()" value="Reset" />
+            </div>
+        </div>
+</div>

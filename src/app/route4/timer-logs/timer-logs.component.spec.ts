@@ -1,19 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Route1Component } from './route1.component';
 
+import { TimerLogsComponent } from './timer-logs.component';
 
-describe('Route1Component', () => {
-  let component: Route1Component;
-  let fixture: ComponentFixture<Route1Component>;
+describe('TimerLogsComponent', () => {
+  let component: TimerLogsComponent;
+  let fixture: ComponentFixture<TimerLogsComponent>;
 
   beforeEach(async () => {
-    console.log('Route 1 Test');
     await TestBed.configureTestingModule({
-      declarations: [ Route1Component ]
+      declarations: [ TimerLogsComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Route1Component);
+    fixture = TestBed.createComponent(TimerLogsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

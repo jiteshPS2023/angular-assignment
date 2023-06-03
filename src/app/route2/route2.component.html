@@ -22,24 +22,10 @@
               </div>
         </div>
     </div>
-    <div id="gridViewDiv" class="grid-view container {{viewType=='grid'? '':'d-none'}}">    
+    <div [ngClass]="{'grid-view': viewType=='grid', 'list-view': viewType=='list'}" class="container">    
         <div class="row">
-            <div class="col-md-3" *ngFor="let data of jsonData">
-                <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">{{data.title}}</h5>
-                      <p class="card-text">{{data.description}}</p>
-                      <span class="badge bg-secondary mb-2">Price: {{data.price}}</span>
-                      <a href="#" class="btn btn-primary">{{data.buttonText}}</a>
-                    </div>
-                  </div>
-                </div>
-        </div>            
-    </div>
-    
-    <div id="listViewDiv" class="list-view container {{viewType=='list'? '':'d-none'}}">      
-        <div class="row">
-            <div class="col-md-6" *ngFor="let data of jsonData">
+            <div [ngClass]="{'col-md-3': viewType=='grid', 'col-md-6': viewType=='list'}" 
+             *ngFor="let data of jsonData">
                 <div class="card">
                     <div class="card-body">
                       <h5 class="card-title">{{data.title}}</h5>

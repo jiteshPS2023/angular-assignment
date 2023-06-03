@@ -1,11 +1,10 @@
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { Route3Component } from './route3.component';
 import { Route3RoutingModule } from './route3-routing.module';
-import { CountdownTimerComponent } from './countdown.timer/countdown.timer.component';
-import { TimerInputComponent } from './timer.input/timer.input.component';
-import { TimerLogsComponent } from './timer.logs/timer.logs.component';
-import { TimerCountComponent } from './timer.count/timer.count.component';
+import { CountdownTimerComponent } from './countdown-timer/countdown-timer.component';
+import { TimerInputComponent } from './timer-input/timer-input.component';
+import { TimerLogsComponent } from './timer-logs/timer-logs.component';
+import { TimerCountComponent } from './timer-count/timer-count.component';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -13,7 +12,6 @@ import { FormsModule } from '@angular/forms';
     declarations:[Route3Component, CountdownTimerComponent, TimerInputComponent, TimerLogsComponent, TimerCountComponent],
     imports: [
         CommonModule,
-        RouterModule,
         Route3RoutingModule,
         DatePipe,
         FormsModule
@@ -22,10 +20,4 @@ import { FormsModule } from '@angular/forms';
 })
 export class Route3Module
 {
-    startValue: string ="";
-    startTimer(value: string)
-    {
-        this.startValue=value;
-        console.log('Route3 Module value: '+value);
-    }
 }

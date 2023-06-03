@@ -1,8 +1,8 @@
-import { AppErrorHandler } from './../shared/handlers/AppErrorHandler';
 import { Route2Json } from './../shared/models/Route2Json';
 import { Route2Service } from './route2.service';
 import { Component, OnInit } from '@angular/core';
 import { throwError } from 'rxjs';
+import { HttpErrorHandler } from '../shared/handlers/HttpErrorHandler';
 
 @Component({
   selector: 'app-route2',
@@ -13,7 +13,6 @@ export class Route2Component implements OnInit {
   sortType: string = "asc";
   viewType: string = "grid";
   jsonData: Route2Json[] = [];
-  errorHandler = new  AppErrorHandler();
   constructor(private service: Route2Service)
   {
 
@@ -24,8 +23,10 @@ export class Route2Component implements OnInit {
   getJsonData(){
     this.service.getRoute2Data().subscribe({
       next: (resp) => {this.showHtml(resp)},
-      error: (e) => throwError(()=> {this.errorHandler.handleError(e)}),
-      complete: () => console.log('Route2 data fetch complete!')
+      error: (e) => {
+        let handler = new HttpErrorHandler();
+        handler.error(e);
+      }
     });
   }
   showHtml(data: Route2Json[]){

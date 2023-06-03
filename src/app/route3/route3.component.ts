@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { countdownDetails } from './models/countdownDetails';
+import { CountdownDetails } from '../shared/models/countdownDetails';
 
 @Component({
   selector: 'app-route3',
@@ -7,9 +7,9 @@ import { countdownDetails } from './models/countdownDetails';
   styleUrls: ['./route3.component.css']
 })
 export class Route3Component {
-  countdownDet = new countdownDetails(0, "");
+  countdownDet : CountdownDetails = {timerValue: 0, eventName: ""};
 
-  startTimer(det: countdownDetails){
+  updateTimer(det: CountdownDetails){
     this.countdownDet.eventName=det.eventName;
     this.countdownDet.timerValue=det.timerValue;
   }

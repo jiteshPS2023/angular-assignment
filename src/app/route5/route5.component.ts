@@ -1,4 +1,3 @@
-import { AppErrorHandler } from './../shared/handlers/AppErrorHandler';
 import { Route5Json } from './../shared/models/Route5Json';
 import { Route5Service } from './services/route5.service';
 import { Component, OnInit } from '@angular/core';
@@ -17,8 +16,6 @@ export class Route5Component implements OnInit {
     header!: string[];
     objValue = Object.values;
 
-    errorHandler = new AppErrorHandler();
-
     constructor(private service: Route5Service) { }
 
     ngOnInit(): void {
@@ -27,7 +24,7 @@ export class Route5Component implements OnInit {
     getJsonData() {
         this.service.getRoute5Data().subscribe({
             next: (resp) => { this.processTableData(resp, '') },
-            error: (e) => throwError(() => { this.errorHandler.handleError(e) }),
+            error: (e) => {throw e;},
             complete: () => console.log('Route5 data fetch complete!')
         });
     }
@@ -43,23 +40,21 @@ export class Route5Component implements OnInit {
 
     sortData(sortCol: string) {
         if (sortCol != '' && sortCol != undefined) {
-            if (this.sortType == "asc") {
+            if(this.sortType == "asc" || this.sortType == "desc")
+            {
                 this.jsonData.sort((a, b) => {
-                    if (Object.values(a)[this.header.indexOf(sortCol)]
-                        < Object.values(b)[this.header.indexOf(sortCol)]) {
+                    if ((Object.values(a)[this.header.indexOf(sortCol)]
+                        < Object.values(b)[this.header.indexOf(sortCol)] && this.sortType == "asc") 
+                        || 
+                        (Object.values(a)[this.header.indexOf(sortCol)]
+                        > Object.values(b)[this.header.indexOf(sortCol)] && this.sortType == "desc")
+                        ) {
                         return -1;
                     } else
                         return 1;
                 });
-            } else if (this.sortType == "desc") {
-                this.jsonData.sort((a, b) => {
-                    if (Object.values(a)[this.header.indexOf(sortCol)]
-                        > Object.values(b)[this.header.indexOf(sortCol)]) {
-                        return -1;
-                    } else
-                        return 1;
-                });
-            } else {
+            }
+            else {
                 Object.assign(this.jsonData, this.initialData);
             }
         } else {

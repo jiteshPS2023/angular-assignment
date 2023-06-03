@@ -1,47 +1,59 @@
-import { Subject } from "rxjs";
-import { countdownDetails } from "../models/countdownDetails";
+import { Injectable } from '@angular/core';
+import { TimerEvents } from '../../shared/enums/TimerEvents';
+import { interval, Observable, Subject } from "rxjs";
+import { CountdownDetails } from '../../shared/models/countdownDetails';
 
-export class timerService
+@Injectable()
+export class TimerService
 {
-    timerDetails = new Subject<countdownDetails>();
-    eventDetails = new Subject<string>();
+    timerDetails = new Subject<CountdownDetails>();
+    timerDetailsObs?: Observable<CountdownDetails>;
     interval: any;
     currentTimervalue!: number;
 
-    startTimer(timerValue: number, eventName: string) {
-        if(timerValue > 0 && this.currentTimervalue>0 &&  this.currentTimervalue< timerValue)
-            timerValue = this.currentTimervalue;
+    constructor(){
+      this.timerDetailsObs = this.timerDetails.asObservable();
+    }
 
-        let det = new countdownDetails(timerValue, eventName);
-        this.eventDetails.next("Started");
-        console.log('Starting timer');
-        this.interval = setInterval(() => {
-          if(timerValue > 0) {
-            this.timerDetails.next(det);
-            det.timerValue--;
-          } else {
-            det.timerValue = 0;
-            // this.timerDetails.complete();
-          }
-          this.currentTimervalue = det.timerValue;
-        },1000)
+    startTimer(timerValue: number, eventName: string) {
+        if(timerValue)
+        {
+          if(this.currentTimervalue &&  this.currentTimervalue< timerValue && this.currentTimervalue != 0)
+            timerValue = this.currentTimervalue;
+        
+          let det : CountdownDetails = {timerValue: timerValue, eventName: eventName};
+          this.currentTimervalue = timerValue;
+          this.timerDetails.next(det);
+          console.log('Starting timer');
+          const interval$ = interval(1000); 
+          this.interval =  interval$.subscribe(val => 
+              {
+                if(this.currentTimervalue>0) {
+                  det.timerValue--;
+                  this.timerDetails.next(det);
+                } else {
+                  det.timerValue = 0;
+                  let completed : CountdownDetails = {timerValue: 0, eventName: TimerEvents.Completed};
+                  this.timerDetails.next(completed);
+                  this.interval.unsubscribe();
+                }
+                this.currentTimervalue = det.timerValue;
+              }
+            );
+        }
     }
 
     pauseTimer(eventName: string){
-        this.eventDetails.next("Paused");
         console.log('Pausing timer');
-        clearInterval(this.interval);
-        let det = new countdownDetails(this.currentTimervalue, eventName);
+        this.interval.unsubscribe();
+        let det : CountdownDetails = {timerValue: this.currentTimervalue, eventName: eventName};
         this.timerDetails.next(det);
-        // this.timerDetails.complete();
     }
     resetTimer(eventName: string){
-        this.eventDetails.next("Reset");
         console.log('Reseting timer');
-        clearInterval(this.interval);
+        this.interval.unsubscribe();
         this.currentTimervalue =0;
-        let det = new countdownDetails(this.currentTimervalue, eventName);
+        let det : CountdownDetails = {timerValue: this.currentTimervalue, eventName: eventName};
         this.timerDetails.next(det);
-        // this.timerDetails.complete();
     }
 }

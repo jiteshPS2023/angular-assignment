@@ -1,19 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Route1Component } from './route1.component';
 
+import { HeaderComponent } from './header.component';
 
-describe('Route1Component', () => {
-  let component: Route1Component;
-  let fixture: ComponentFixture<Route1Component>;
+describe('HeaderComponent', () => {
+  let component: HeaderComponent;
+  let fixture: ComponentFixture<HeaderComponent>;
 
   beforeEach(async () => {
-    console.log('Route 1 Test');
     await TestBed.configureTestingModule({
-      declarations: [ Route1Component ]
+      declarations: [ HeaderComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Route1Component);
+    fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

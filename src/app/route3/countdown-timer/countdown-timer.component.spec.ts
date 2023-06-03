@@ -1,19 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Route1Component } from './route1.component';
 
+import { CountdownTimerComponent } from './countdown-timer.component';
 
-describe('Route1Component', () => {
-  let component: Route1Component;
-  let fixture: ComponentFixture<Route1Component>;
+describe('CountdownTimerComponent', () => {
+  let component: CountdownTimerComponent;
+  let fixture: ComponentFixture<CountdownTimerComponent>;
 
   beforeEach(async () => {
-    console.log('Route 1 Test');
     await TestBed.configureTestingModule({
-      declarations: [ Route1Component ]
+      declarations: [ CountdownTimerComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Route1Component);
+    fixture = TestBed.createComponent(CountdownTimerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
