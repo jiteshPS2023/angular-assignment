@@ -35,7 +35,9 @@ export class TimerService
                   det.timerValue = 0;
                   let completed : CountdownDetails = {timerValue: 0, eventName: TimerEvents.Completed};
                   this.timerDetails.next(completed);
-                  this.interval.unsubscribe();
+                  
+                  if (this.interval)
+                    this.interval.unsubscribe();
                 }
                 this.currentTimervalue = det.timerValue;
               }
@@ -45,13 +47,15 @@ export class TimerService
 
     pauseTimer(eventName: string){
         console.log('Pausing timer');
-        this.interval.unsubscribe();
+        if (this.interval)
+          this.interval.unsubscribe();
         let det : CountdownDetails = {timerValue: this.currentTimervalue, eventName: eventName};
         this.timerDetails.next(det);
     }
     resetTimer(eventName: string){
         console.log('Reseting timer');
-        this.interval.unsubscribe();
+        if (this.interval)
+          this.interval.unsubscribe();
         this.currentTimervalue =0;
         let det : CountdownDetails = {timerValue: this.currentTimervalue, eventName: eventName};
         this.timerDetails.next(det);

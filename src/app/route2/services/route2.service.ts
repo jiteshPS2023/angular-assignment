@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import {Route2Json} from "../shared/models/Route2Json";
+import {Route2Json} from "../../shared/models/Route2Json";
 import { Injectable } from '@angular/core';
 
 @Injectable()

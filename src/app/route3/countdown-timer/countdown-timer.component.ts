@@ -22,7 +22,7 @@ export class CountdownTimerComponent implements OnChanges  {
     else
     {
       this.currentTimerValue = 0;
-      clearInterval(this.interval);
+      this.clearTimerInterval();
     }
 
   }
@@ -37,7 +37,7 @@ export class CountdownTimerComponent implements OnChanges  {
         this.currentTimerValue--;
       } else {
         this.currentTimerValue = 0;
-        clearInterval(this.interval);
+        this.clearTimerInterval();
         let det : CountdownDetails = {timerValue: 0,eventName: TimerEvents.Completed};
         this.timerDetails.emit(det);
       }
@@ -45,6 +45,9 @@ export class CountdownTimerComponent implements OnChanges  {
   }
   pauseTimer(){
     console.log('Pausing timer');
+    this.clearTimerInterval();
+  }
+  clearTimerInterval(){
     clearInterval(this.interval);
   }
 }

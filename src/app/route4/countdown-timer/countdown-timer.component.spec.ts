@@ -20,4 +20,7 @@ describe('CountdownTimerComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });

@@ -1,5 +1,5 @@
 import { Route2Json } from './../shared/models/Route2Json';
-import { Route2Service } from './route2.service';
+import { Route2Service } from './services/route2.service';
 import { Component, OnInit } from '@angular/core';
 import { throwError } from 'rxjs';
 import { HttpErrorHandler } from '../shared/handlers/HttpErrorHandler';

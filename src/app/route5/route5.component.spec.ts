@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
 import { Route5Json } from '../shared/models/Route5Json';
 
@@ -40,23 +41,27 @@ describe('Route5Component', () => {
     fixture.detectChanges();
     expect(subSpy).toHaveBeenCalled();
   }));
-  it('should process table data', () => {
-    component.processTableData(testData(), '');
-    expect(component.jsonData).toEqual(testData());
-  });
-  it('should sort table data', () => {
-    component.processTableData(testData(), '');
-    component.changeSorting(0);
-    expect(component.jsonData).toEqual(
-      testData().sort((a, b) => 
-      {
-        if(a.Name< b.Name)
-          return -1;
-        else
-          return 1;
-      }
-    ));
-  });
+  it('should sort table data', fakeAsync(() => {
+    routeServiceSpy.getRoute5Data.and.returnValue(of(testData()));
+    
+    tick();
+    fixture.detectChanges();
+
+    let tableHeader = fixture.debugElement.query(By.css('th:first-child'));
+    tableHeader.nativeElement.click();
+  
+    fixture.whenStable().then(() => {  
+      expect(component.jsonData).toEqual(
+        testData().sort((a, b) => 
+        {
+          if(a.Name< b.Name)
+            return -1;
+          else
+            return 1;
+        }
+      ));
+    });    
+  }));
 });
 
 function testData(): Route5Json[]{
