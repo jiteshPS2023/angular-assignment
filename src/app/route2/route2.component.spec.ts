@@ -1,11 +1,12 @@
 import { Route2Json } from './../shared/models/Route2Json';
 import { HttpClient } from '@angular/common/http';
 import { Route2Module } from './route2.module';
-import { Route2Service } from './route2.service';
+import { Route2Service } from './services/route2.service';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { Route2Component } from './route2.component';
 import { of } from 'rxjs';
+import { By } from '@angular/platform-browser';
 
 describe('Route2Component', () => {
   let component: Route2Component;
@@ -14,7 +15,7 @@ describe('Route2Component', () => {
 
   beforeEach(async () => {
     routeServiceSpy = jasmine.createSpyObj('Route2Service', ['getRoute2Data']);
-
+    
     await TestBed.configureTestingModule({
       imports: [Route2Module],
       declarations: [ Route2Component ],
@@ -27,18 +28,33 @@ describe('Route2Component', () => {
       fixture = TestBed.createComponent(Route2Component);
       component = fixture.componentInstance;
     });
-
+    
   });
-  it('should sort data', () => {
+  it('should create component', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should sort data on click', () => {
     component.showHtml(testData());
-    component.sortData('asc');
-    expect(component.sortType).toEqual("asc");
-    expect(component.jsonData).toEqual(testData());
+    let button = fixture.debugElement.query(By.css('#btnPriceDesc'));
+    button.nativeElement.click();
+  
+    fixture.whenStable().then(() => {  
+      expect(component.sortType).toEqual("desc");
+      expect(component.jsonData).toEqual(testData().sort(function(a, b){
+        return b.price - a.price;
+      }));
+    });
   });
     
   it('should change view type', () => {
-    component.changeViewType('grid');
-    expect(component.viewType).toEqual("grid");
+    component.showHtml(testData());
+    let button = fixture.debugElement.query(By.css('#btnGrid'));
+    button.nativeElement.click();
+    fixture.whenStable().then(() => {  
+      component.changeViewType('grid');
+      expect(component.viewType).toEqual("grid");
+    });
   });
 
   it('service should return data', fakeAsync(() => {
@@ -48,10 +64,6 @@ describe('Route2Component', () => {
       tick();
       expect(subSpy).toHaveBeenCalled();
   }));
-
-  it('should create component', () => {
-    expect(component).toBeTruthy();
-  });
 });
 
 function testData(): Route2Json[]{

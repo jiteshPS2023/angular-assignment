@@ -35,7 +35,8 @@ export class TimerInputComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    this.subscriber.unsubscribe();
+    if (this.subscriber)
+      this.subscriber.unsubscribe();
   }
   identify(index: number, item: string){
     return item; 

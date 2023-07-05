@@ -7,7 +7,6 @@ describe('Route1Component', () => {
   let fixture: ComponentFixture<Route1Component>;
 
   beforeEach(async () => {
-    console.log('Route 1 Test');
     await TestBed.configureTestingModule({
       declarations: [ Route1Component ]
     })

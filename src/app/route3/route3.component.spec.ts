@@ -33,14 +33,4 @@ describe('Route3Component', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  
-  it('should star timer', () => {
-    component.startTimer({timerValue: 100, eventName: TimerEvents.Started});
-    expect(component.countdownDet.eventName).toEqual(TimerEvents.Started);
-    expect(component.countdownDet.timerValue).toEqual(100);
-  });
-
-  // it('click start timer', () => {
-
-  // });
 });

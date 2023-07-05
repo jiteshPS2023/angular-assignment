@@ -16,6 +16,8 @@ export class CountdownTimerComponent implements OnInit, OnDestroy {
     this.timerSubscriber = timerObs?.subscribe(det => this.timerValue = det.timerValue);
   }
   ngOnDestroy(){
-    this.timerSubscriber.unsubscribe();
+    
+    if (this.timerSubscriber)
+      this.timerSubscriber.unsubscribe();
   }
 }
